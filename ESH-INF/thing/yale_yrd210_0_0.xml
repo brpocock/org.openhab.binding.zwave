@@ -12,7 +12,7 @@
     <!-- CHANNEL DEFINITIONS -->
     <channels>
       <channel id="lock_door" typeId="lock_door">
-        <label></label>
+        <label>Lock Deadbolt</label>
         <properties>
           <property name="binding:*:OnOffType">COMMAND_CLASS_DOOR_LOCK</property>
         </properties>
@@ -35,7 +35,7 @@
       <property name="vendor">ASSA ABLOY</property>
       <property name="modelId">YRD210</property>
       <property name="manufacturerId">0129</property>
-      <property name="manufacturerRef">0004:0000,0004:AA00</property>
+      <property name="manufacturerRef">0004:0000,0004:AA00,3b85:0000</property>
       <property name="dbReference">235</property>
       <property name="defaultAssociations">1</property>
     </properties>
@@ -54,8 +54,8 @@
         <default>3</default>
         <options>
           <option value="1">Silent</option>
-          <option value="2">Low</option>
-          <option value="3">High</option>
+          <!-- Pushbutton model does not support Quiet mode=2 -->
+          <option value="3">Enabled</option>
         </options>
       </parameter>
 
@@ -82,6 +82,7 @@
         <default>5</default>
       </parameter>
 
+      <!-- Pushbutton model does not speak aloud.
       <parameter name="config_5_1" type="integer" groupName="configuration">
         <label>5: Language</label>
         <default>1</default>
@@ -90,7 +91,7 @@
           <option value="2">Spanish</option>
           <option value="3">French</option>
         </options>
-      </parameter>
+      </parameter> -->
 
       <parameter name="config_7_1" type="integer" groupName="configuration"
                  min="1" max="255">
@@ -101,7 +102,7 @@
 
       <parameter name="config_8_1" type="integer" groupName="configuration">
         <label>8: Operating Mode</label>
-        <description>Normal Mode Vacation Mode - all user codes disabled Privacy Mode - all user codes disabled and RF Lock/Unlock disabled</description>
+        <description>Normal Mode; Vacation Mode - all user codes disabled (except Master code); Privacy Mode - all user codes disabled and RF Lock/Unlock disabled</description>
         <default>0</default>
         <options>
           <option value="0">Normal</option>
@@ -109,7 +110,37 @@
           <option value="2">Privacy</option>
         </options>
       </parameter>
+      
+      <parameter name="config_11_1" type="integer" groupName="configuration">
+        <label>11: One Touch Locking</label>
+        <description>When deadbolt is unlocked, any button press will lock. (Only with firmware v1.9+)</description>
+        <default>255</default>
+        <options>
+          <option value="0">Off</option>
+          <option value="255">On</option>
+        </options>
+      </parameter>
+      
+      <parameter name="config_12_1" type="integer" groupName="configuration">
+        <label>12: Privacy Button</label>
+        <description>(Only with firmware v1.9+)</description>
+        <default>0</default>
+        <options>
+          <option value="0">Off</option>
+          <option value="255">On</option>
+        </options>
+      </parameter>
 
+      <parameter name="config_13_1" type="integer" groupName="configuration">
+        <label>13: Lock Status LED</label>
+        <description>(Only with firmware v1.9+)</description>
+        <default>0</default>
+        <options>
+          <option value="0">Off</option>
+          <option value="255">On</option>
+        </options>
+      </parameter>
+      
       <!-- ASSOCIATION DEFINITIONS -->
       <parameter-group name="association">
         <context>link</context>
